@@ -151,12 +151,13 @@ void IRAM_ATTR onTimer() {
 }
 
 void setup() {
+  // 2.5 秒後に onTimer を呼び出して deelp sleep に入る
   hw_timer_t * timer = NULL;
   timer = timerBegin(0, 80, true);
   timerAttachInterrupt(timer, &onTimer, true);
   timerAlarmWrite(timer, 2500000, true);
   timerAlarmEnable(timer);
-
+  
   esp_deep_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_OFF);
   esp_deep_sleep_pd_config(ESP_PD_DOMAIN_RTC_SLOW_MEM, ESP_PD_OPTION_OFF);
   esp_deep_sleep_pd_config(ESP_PD_DOMAIN_RTC_FAST_MEM, ESP_PD_OPTION_OFF);
